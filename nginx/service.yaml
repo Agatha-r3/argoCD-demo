@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-nginx-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Agatha-r3/argoCD-demo.git'
+    targetRevision: main
+    path: nginx  # or . if the manifest is at the repo root
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
